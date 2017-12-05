@@ -14,8 +14,8 @@
       <file leaf-file-name="bin_pack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin_pack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1342">
-              <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+            <state relative-caret-position="-52">
+              <caret line="174" column="5" lean-forward="false" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -219,23 +219,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bin_pack.py</url>
-          <line>176</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bin_pack.py</url>
-          <line>153</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/bin_pack.py</url>
-          <line>170</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -276,8 +259,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin_pack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1342">
-          <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+        <state relative-caret-position="-52">
+          <caret line="174" column="5" lean-forward="false" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

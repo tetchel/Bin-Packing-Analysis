@@ -91,13 +91,6 @@ def first_fit(items, decreasing=True):
     for item, weight in enumerate(items):
         packed = False
 
-        """
-        # Naive way (results in quadratic runtime)
-        for bin in bins:
-            if bin.try_add_item(item, weight):
-                packed = True
-                break
-        """
         lightest_bin_node = bin_weights.min()
 
         if lightest_bin_node:
@@ -135,33 +128,11 @@ def best_fit(items, decreasing=True):
     # Sort - so this is actually best fit decreasing
     if decreasing:
         items.sort(reverse=True)
-    for item, weight in enumerate(items):
-        # Below loop can be improved by using a data structure with faster lookup to get a bin with room.
-        # Eg a binary tree sorted by residual capacity would allow searching for the emptiest bin
-        # in log(|B|) time where B is the set of bins.
-        """
-        for bin in bins:
-            rcap = bin.get_residual_capacity(weight)
-            if rcap >= best_bin_rcap:
-                best_bin_rcap = rcap
-                best_bin = bin
-                # print('The best bin is {} with rcap {}'.format(best_bin, rcap))
-        """
 
+    for item, weight in enumerate(items):
         # The current weight of an optimal bin (ie, if this item is weight 6, we want a bin with weight 4)
         optimal_weight = Bin.CAPACITY - weight
-
         best_bin_node = bin_weights.find_largest_lessthan(optimal_weight)
-        # If the optimal weight is 0, this item requires its own bin, so we can skip the search process.
-        if optimal_weight > 0:
-            # Look for a best fit. An optimal fit is one where 0 space remains in the bin. A second loop
-            # will loop for one where 1 space remains, then 2 space, until we require an empty bin.
-            # This loop executes O(Bin.CAPACITY) times, which is independent of the input size.
-            """            
-            while not best_bin_node and optimal_weight > 0:
-                best_bin_node = bin_weights.find_value(optimal_weight)
-                optimal_weight -= 1
-            """
 
         if not best_bin_node:
             new_bin = Bin(bin_counter)
@@ -201,7 +172,7 @@ def pack_and_print(items, algorithm, opt, print_contents=False):
 
 def pack_print_all(items):
     print('----- Running all packing algorithms on input size ' + str(len(items)))
-    #print('INPUT: ' + str(items))
+    # print('INPUT: ' + str(items))
 
     tw = sum(item for item in items)
     opt = math.ceil(tw / Bin.CAPACITY)
