@@ -39,7 +39,7 @@ class NodeKey():
 class Node():
     def __init__(self, value, name=None):
         self.key = NodeKey(value, name)
-        #print('created node with key ' + str(self.key.value) + ":" + str(self.key.name))
+        # print('created node with key ' + str(self.key.value) + ":" + str(self.key.name))
         self.value = value
         self.parent = None
         self.left_child = None
@@ -374,6 +374,25 @@ class BinaryTree():
 
     def find(self, key):
         return self.find_in_subtree(self.root, key)
+
+    def find_largest_lessthan(self, value):
+        return self._find_largest_lessthan(self.root, value, None)
+
+    def _find_largest_lessthan(self, node, value, best):
+        if node is None:    # Bottom of tree
+            return best
+
+        diff = value - node.key.value
+        if diff > 0 and (best is None or diff < value - best.value):
+            # Found a closer value
+            best = node
+
+        if value < node.key.value:
+            return self._find_largest_lessthan(node.left_child, value, best)
+        if value > node.key.value:
+            return self._find_largest_lessthan(node.right_child, value, best)
+        else:       # Equal
+            return node
 
     def find_in_subtree(self, node, node_key):
         if node is None:

@@ -7,7 +7,7 @@ from timeit import default_timer as timer
 # Assumes integer weights, and gives each bin capacity 10.
 
 class Bin:
-    CAPACITY = 10
+    CAPACITY = 1
 
     def __init__(self, name):
         # Items contains a list of (name, weight) tuples representing items packed into this bin
@@ -44,10 +44,10 @@ class Bin:
         result = 'Bin {}: '.format(self.name)
         total_w = 0
         for item in self.items:
-            result += 'Item {} w={}, '.format(item[0], item[1])
+            result += 'Item {} w={}, '.format(item[0], round(item[1], 6))
             total_w += item[1]
         result = result.strip()
-        result += " Total: " + str(total_w)
+        result += " Total: " + str(round(total_w, 6))
         return result
 
 
@@ -88,13 +88,13 @@ def first_fit(items, decreasing=True):
         items.sort(reverse=True)
 
     bin_counter = 0
-    for index, item in enumerate(items):
+    for item, weight in enumerate(items):
         packed = False
 
         """
         # Naive way (results in quadratic runtime)
         for bin in bins:
-            if bin.try_add_item(index, item):
+            if bin.try_add_item(item, weight):
                 packed = True
                 break
         """
@@ -102,12 +102,12 @@ def first_fit(items, decreasing=True):
 
         if lightest_bin_node:
             lightest_bin = bins[lightest_bin_node.key.name]
-            packed = lightest_bin.try_add_item(index, item)
+            packed = lightest_bin.try_add_item(item, weight)
 
         if not packed:
             b = Bin(bin_counter)
             bin_counter += 1
-            if not b.try_add_item(index, item):
+            if not b.try_add_item(item, weight):
                 print('Error! Could not add item into empty bin. Is the item larger than the bin?')
             bins.append(b)
             bin_weights.insert(b.weight, b.name)
@@ -135,13 +135,13 @@ def best_fit(items, decreasing=True):
     # Sort - so this is actually best fit decreasing
     if decreasing:
         items.sort(reverse=True)
-    for index, item in enumerate(items):
+    for item, weight in enumerate(items):
         # Below loop can be improved by using a data structure with faster lookup to get a bin with room.
         # Eg a binary tree sorted by residual capacity would allow searching for the emptiest bin
         # in log(|B|) time where B is the set of bins.
         """
         for bin in bins:
-            rcap = bin.get_residual_capacity(item)
+            rcap = bin.get_residual_capacity(weight)
             if rcap >= best_bin_rcap:
                 best_bin_rcap = rcap
                 best_bin = bin
@@ -149,26 +149,31 @@ def best_fit(items, decreasing=True):
         """
 
         # The current weight of an optimal bin (ie, if this item is weight 6, we want a bin with weight 4)
-        optimal_weight = Bin.CAPACITY - item
+        optimal_weight = Bin.CAPACITY - weight
 
-        best_bin_node = None
+        best_bin_node = bin_weights.find_largest_lessthan(optimal_weight)
         # If the optimal weight is 0, this item requires its own bin, so we can skip the search process.
         if optimal_weight > 0:
+            # Look for a best fit. An optimal fit is one where 0 space remains in the bin. A second loop
+            # will loop for one where 1 space remains, then 2 space, until we require an empty bin.
+            # This loop executes O(Bin.CAPACITY) times, which is independent of the input size.
+            """            
             while not best_bin_node and optimal_weight > 0:
                 best_bin_node = bin_weights.find_value(optimal_weight)
                 optimal_weight -= 1
+            """
 
         if not best_bin_node:
             new_bin = Bin(bin_counter)
             bin_counter += 1
 
-            if not new_bin.try_add_item(index, item):
+            if not new_bin.try_add_item(item, weight):
                 print('Error! Could not add item into empty bin. Is the item larger than the bin?')
             bins.append(new_bin)
             bin_weights.insert(new_bin.weight, new_bin.name)
         else:
             best_bin = bins[best_bin_node.key.name]
-            if not best_bin.try_add_item(index, item):
+            if not best_bin.try_add_item(item, weight):
                 print('Error! Best bin did not have room for item!')
             else:
                 bin_weights.remove(best_bin_node.key)
@@ -185,9 +190,9 @@ def pack_and_print(items, algorithm, opt, print_contents=False):
 
     print('Took ' + str(round(end_t, 4)) + "s")
     sol = len(bins)
-    print('Used {} bins of an optimal {}'.format(sol, opt))
+    print('Used {} bins compared to an optimal {}'.format(sol, opt))
     print('{} approx ratio for this instance is {}'
-          .format(algorithm.__name__, round(sol / opt, 4)))
+          .format(algorithm.__name__, round(sol / opt, 6)))
 
     if print_contents:
         for index, bin in enumerate(bins):
@@ -216,14 +221,16 @@ def random_list(min, max, length):
     return result
 
 
-#pack_print_all(random_list(1, 10, 10000))
-#pack_and_print(random_list(1, 10, 1000), first_fit)
-#pack_and_print([1, 10, 5, 6, 4, 4, 9, 3, 5], best_fit, True)
-#pack_and_print(random_list(1, 10, 100000), best_fit)
+INPUT_SIZE = 100000
 
-for i in range(10):
-    pack_print_all(random_list(1, 10, 100000))
+worst_case_nf = [5, 1] * int(math.ceil(INPUT_SIZE / 2))
+#pack_print_all(worst_case_nf)
 
-# pack_print_all([1, 10, 5, 6, 4, 4, 9, 3, 5] * 1000)
-# Demonstrates problem with next_fit
-# pack_print_all([9, 8, 9, 2, 1, 1])
+onethird = int(math.ceil(INPUT_SIZE / 3))
+worst_case_ff = [1/7 + 0.001] * onethird + [1/3 + 0.001] * onethird + [1/2 + 0.001] * onethird
+pack_print_all(worst_case_ff)
+
+#for i in range(10):
+#    pack_print_all(random_list(1, 10, 100000))
+
+
