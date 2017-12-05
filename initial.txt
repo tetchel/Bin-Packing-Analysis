@@ -1,0 +1,38 @@
+Packing using next_fit
+Took 0.17100445251844576s
+Used 70098 bins
+Total weight was 550436 and capacity per-bin was 10, so an optimal solution would use at least 55044 bins
+Packing using first_fit
+Took 1323.5882724549892s
+Used 55138 bins
+Total weight was 550436 and capacity per-bin was 10, so an optimal solution would use at least 55044 bins
+Packing using best_fit
+Took 885.6017158770469s
+Used 55138 bins
+Total weight was 550436 and capacity per-bin was 10, so an optimal solution would use at least 55044 bins
+
+Packing using next_fit
+Took 0.17042587338164594s
+Used 70217 bins
+Total weight was 551446 and capacity per-bin was 10, so an optimal solution would use at least 55145 bins
+Packing using first_fit
+Took 1333.0629786749341s
+Used 55189 bins
+Total weight was 551446 and capacity per-bin was 10, so an optimal solution would use at least 55145 bins
+Packing using best_fit
+Took 884.5508578655072s
+Used 55189 bins
+Total weight was 551446 and capacity per-bin was 10, so an optimal solution would use at least 55145 bins
+
+Packing using next_fit
+Took 0.16969074784537952s
+Used 69994 bins
+Total weight was 550409 and capacity per-bin was 10, so an optimal solution would use at least 55041 bins
+Packing using first_fit
+Took 1324.871156179859s
+Used 55058 bins
+Total weight was 550409 and capacity per-bin was 10, so an optimal solution would use at least 55041 bins
+Packing using best_fit
+Took 889.0168176395082s
+Used 55058 bins
+Total weight was 550409 and capacity per-bin was 10, so an optimal solution would use at least 55041 bins
