@@ -1,0 +1,17 @@
+Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT
+Running a worst case for Next Fit
+next_fit, False, 100, 0.000143, 50, 26, 1.923077
+worst_fit, False, 100, 0.002406, 50, 26, 1.923077
+next_fit, True, 100, 0.000123, 26, 26, 1.0
+worst_fit, True, 100, 0.002402, 26, 26, 1.0
+best_fit, True, 100, 0.002447, 26, 26, 1.0
+first_fit, False, 100, 0.000414, 26, 26, 1.0
+first_fit, True, 100, 0.00103, 26, 26, 1.0
+Running a worst case for First Fit
+next_fit, False, 102, 0.000142, 56, 34, 1.647059
+worst_fit, False, 102, 0.002191, 56, 34, 1.647059
+next_fit, True, 102, 0.000148, 56, 34, 1.647059
+worst_fit, True, 102, 0.003671, 34, 34, 1.0
+best_fit, True, 102, 0.00355, 34, 34, 1.0
+first_fit, False, 102, 0.00104, 56, 34, 1.647059
+first_fit, True, 102, 0.000953, 34, 34, 1.0

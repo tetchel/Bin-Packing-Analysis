@@ -6,13 +6,14 @@ ALL CREDIT TO
 https://github.com/marehr/binary-tree
 """
 
-class NodeKey():
+class NodeKey:
     def __init__(self, value, name=None):
         self.name = name
         self.value = value
 
     def __lt__(self, other):
-        return self.value < other.value or (self.value == other.value and self.name and self.name < other.name)
+        return self.value < other.value or \
+               (self.value == other.value and self.name is not None and self.name < other.name)
 
     def __le__(self, other):
         return self < other or self == other
@@ -24,7 +25,8 @@ class NodeKey():
         return self.value != other.value or self.name != other.name
 
     def __gt__(self, other):
-        return self.value > other.value or (self.value == other.value and self.name and self.name > other.name)
+        return self.value > other.value or \
+               (self.value == other.value and self.name is not None and self.name > other.name)
 
     def __ge__(self, other):
         return self > other or self == other
@@ -36,7 +38,7 @@ class NodeKey():
             return str(self.value) + "," + str(self.name)
 
 
-class Node():
+class Node:
     def __init__(self, value, name=None):
         self.key = NodeKey(value, name)
         # print('created node with key ' + str(self.key.value) + ":" + str(self.key.name))
@@ -234,7 +236,7 @@ class Node():
         return promote
 
 
-class BinaryTree():
+class BinaryTree:
     """ Binary Search Tree
     Uses AVL Tree
     """
@@ -254,7 +256,7 @@ class BinaryTree():
     def height(self):
         """ Return Max Height Of Tree
         """
-        if self.root:
+        if self.root is not None:
             return self.root.height
         else:
             return 0
@@ -266,6 +268,7 @@ class BinaryTree():
             self.root.balance(self)
 
     def insert(self, value, name=None):
+        #print('Insert {}, {}'.format(name, value))
         if self.root is None:
             # If nothing in tree
             self.root = Node(value, name)
@@ -405,23 +408,30 @@ class BinaryTree():
             return node
 
     def remove(self, key):
+        #print('Removing {}, {}'.format(key.name, key.value))
         # first find
         node = self.find(key)
 
-        if not node is None:
+        if node is not None:
             self.element_count -= 1
 
             if node.is_leaf():
                 # The node is a leaf.  Remove it and return.
+                #print('leaf')
                 self.remove_leaf(node)
-            elif (node.left_child is not None and node.right_child is None) or (node.left_child is None and node.right_child is not None):
+            elif (node.left_child is not None and node.right_child is None) or \
+                    (node.left_child is None and node.right_child is not None):
                 # The node has only 1 child. Make the pointer to this node point to the child of this node.
+                #print('branch')
                 self.remove_branch(node)
             else:
                 # The node has 2 children. Swap items with the successor (the smallest item in its right subtree) and
                 # delete the successor from the right subtree of the node.
+                #print('2 childs')
                 assert node.left_child and node.right_child
                 self.swap_with_successor_and_remove(node)
+        else:
+            raise Exception('Tried to remove nonexistent key ' + str(key))
 
     def remove_leaf(self, node):
         parent = node.parent
@@ -444,14 +454,18 @@ class BinaryTree():
 
     def remove_branch(self, node):
         parent = node.parent
-        if parent:
+        if parent is not None:
             if parent.left_child == node:
-                parent.left_child = node.right_child or node.left_child
+                parent.left_child = node.right_child
+                if parent.left_child is None:
+                    parent.left_child = node.left_child
             else:
                 assert (parent.right_child == node)
-                parent.right_child = node.right_child or node.left_child
+                parent.right_child = node.right_child
+                if parent.right_child is None:
+                    parent.right_child = node.left_child
 
-            if node.left_child:
+            if node.left_child is not None:
                 node.left_child.parent = parent
             else:
                 assert node.right_child
@@ -460,7 +474,7 @@ class BinaryTree():
 
         # rebalance
         node = parent
-        while node:
+        while node is not None:
             if not node.weigh() in [-1, 0, 1]:
                 node.balance(self)
             node = node.parent

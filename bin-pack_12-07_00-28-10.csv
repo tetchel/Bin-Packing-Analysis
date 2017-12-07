@@ -1,0 +1,4 @@
+Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT
+ptas_ff, True, 100000, 6.879491, 52957, 50250, 1.053871
+ptas_ff, True, 100000, 6.859309, 52577, 49984, 1.051877
+ptas_ff, True, 100000, 6.809494, 52664, 50046, 1.052312
