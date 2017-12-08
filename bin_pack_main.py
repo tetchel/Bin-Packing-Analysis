@@ -71,15 +71,15 @@ with open(OUTFILE, 'a') as F:
     F.write('Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT\n')
 
 # test_all(INPUT_SIZE, OUTFILE)
-test_ptas(INPUT_SIZE, OUTFILE)
+# test_ptas(INPUT_SIZE, OUTFILE)
 
 #for x in range(128):
 #    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, OUTFILE, True)
 #    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, OUTFILE, False)
 
 # FF is slow, reduce input size by order of mag.
-# worst_case_nf(math.ceil(INPUT_SIZE/10), OUTFILE)
-# worst_case_ff(math.ceil(INPUT_SIZE/10), OUTFILE)
+worst_case_nf(math.ceil(INPUT_SIZE/10), OUTFILE)
+worst_case_ff(math.ceil(INPUT_SIZE/10), OUTFILE)
 #for x in range(128):
 #    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, False)
 #    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, True)

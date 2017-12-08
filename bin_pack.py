@@ -158,9 +158,11 @@ def _worst_fit(items, decreasing, almost, existing_bins=None):
     for item, weight in enumerate(items):
         packed = False
 
+        light_bin_node = None
         if almost:
             light_bin_node = bin_weights.second_min()
-        else:
+
+        if not almost or light_bin_node is None:        # Fallback for AWF - If there is no second_min(), use min()
             light_bin_node = bin_weights.min()
 
         if light_bin_node:
