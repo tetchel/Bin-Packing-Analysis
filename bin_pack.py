@@ -116,7 +116,7 @@ def set_epsilon(eps):
     epsilon = eps
 
 
-def ptas_wf(items):
+def ptas_awf(items, descending):     # Descending is ignored, but we accept it because pack_and_print will pass it
     print('Running PTAS with epsilon={}'.format(epsilon))
 
     small_items = []
@@ -127,11 +127,11 @@ def ptas_wf(items):
         else:
             small_items.append(item)
 
-    large_packed = worst_fit(large_items, True)
-    return worst_fit(small_items, True, large_packed)
+    large_packed = almost_worst_fit(large_items, True)
+    return almost_worst_fit(small_items, True, large_packed)
 
 
-def worst_fit(items, decreasing, existing_bins=None):
+def almost_worst_fit(items, decreasing, existing_bins=None):
     """
     Runtime: O(n*logn)
     :param items: List of integer item weights, each less than Bin.CAPACITY
@@ -154,10 +154,10 @@ def worst_fit(items, decreasing, existing_bins=None):
     for item, weight in enumerate(items):
         packed = False
 
-        lightest_bin_node = bin_weights.min()
+        second_lightest_bin_node = bin_weights.second_min()
 
-        if lightest_bin_node:
-            lightest_bin = bins[lightest_bin_node.key.name]
+        if second_lightest_bin_node:
+            lightest_bin = bins[second_lightest_bin_node.key.name]
             packed = lightest_bin.try_add_item(item, weight)
 
         if not packed:
@@ -170,7 +170,7 @@ def worst_fit(items, decreasing, existing_bins=None):
         else:
             # Update the tree by removing the old bin weight, and adding the new one, still pointing to the same
             # index in the list of bins.
-            bin_weights.remove(lightest_bin_node.key)
+            bin_weights.remove(second_lightest_bin_node.key)
             bin_weights.insert(lightest_bin.weight, lightest_bin.name)
 
     return bins
@@ -257,10 +257,10 @@ def pack_and_print(items, algorithm, outfile, descending):
 
 def pack_print_all(items, outfile):
     pack_and_print(items, next_fit, outfile, False)
-    pack_and_print(items, worst_fit, outfile, False)
+    pack_and_print(items, almost_worst_fit, outfile, False)
     # pack_and_print(items, best_fit, outfile, False)
 
     pack_and_print(items, next_fit, outfile, True)
-    pack_and_print(items, worst_fit, outfile, True)
+    pack_and_print(items, almost_worst_fit, outfile, True)
     pack_and_print(items, best_fit, outfile, True)
 

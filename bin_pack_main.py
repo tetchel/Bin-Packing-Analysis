@@ -1,6 +1,6 @@
 import math
 
-from bin_pack import pack_print_all, pack_and_print, first_fit, set_epsilon, ptas_wf
+from bin_pack import pack_print_all, pack_and_print, first_fit, set_epsilon, ptas_awf
 import random
 import time
 
@@ -32,20 +32,22 @@ with open(outfile, 'a') as f:
 # for i in range(10):
 #    pack_print_all(random_list(1, 10, 100000))
 
-#for i in range(128):
-#    pack_print_all(random_list(INPUT_SIZE), outfile)
+"""
+for i in range(128):
+    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, outfile, True)
+    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, outfile, False)
+"""
 
-with open(outfile, 'a') as f:
-    f.write('Doing PTAS')
-for j in range(1, 5):
-    eps = 10**-j
+epses = [0.5, 0.25, 0.1, 0.05, 0.01, 0.001]
+
+for eps in epses:
     set_epsilon(eps)
 
     with open(outfile, 'a') as f:
-        f.write('Doing PTAS, eps={}'.format(eps))
-    for i in range(32):
-        print('i {}, j {}'.format(i, j))
-        pack_and_print(random_list(INPUT_SIZE), ptas_wf, outfile, True)
+        f.write('Doing PTAS, eps={}\n'.format(eps))
+    for i in range(64):
+        pack_and_print(random_list(INPUT_SIZE), ptas_awf, outfile, True)
+
 """
 print('Running a worst case for Next Fit')
 with open(outfile, 'a') as f:
