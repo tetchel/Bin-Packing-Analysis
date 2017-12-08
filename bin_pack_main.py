@@ -80,6 +80,3 @@ with open(OUTFILE, 'a') as F:
 # FF is slow, reduce input size by order of mag.
 worst_case_nf(math.ceil(INPUT_SIZE/10), OUTFILE)
 worst_case_ff(math.ceil(INPUT_SIZE/10), OUTFILE)
-#for x in range(128):
-#    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, False)
-#    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, True)
