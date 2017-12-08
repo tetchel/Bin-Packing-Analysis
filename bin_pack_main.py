@@ -23,50 +23,50 @@ def random_list(length):
 
     return result
 
+def test_all(input_size, outfile):
+    for i in range(128):
+        pack_print_all(random_list(input_size), outfile)
+
+def test_ptas(input_size, outfile):
+    epses = [0.5, 0.25, 0.1, 0.05, 0.01, 0.001]
+
+    for eps in epses:
+        set_epsilon(eps)
+
+        with open(outfile, 'a') as f:
+            f.write('Doing PTAS, eps={}\n'.format(eps))
+        for i in range(64):
+            pack_and_print(random_list(input_size), ptas_awf, outfile, True)
+
+def worst_case_nf(input_size, outfile):
+    print('Running a worst case for Next Fit')
+    with open(outfile, 'a') as f:
+        f.write('Running a worst case for Next Fit\n')
+
+    bad_input_nf = [1 / 2, 1 / (2 * input_size)] * int(math.ceil(input_size / 2))
+    pack_print_all(bad_input_nf, outfile)
+    pack_and_print(bad_input_nf, first_fit, outfile, False)
+    pack_and_print(bad_input_nf, first_fit, outfile, True)
+
+def worst_case_ff(input_size, outfile):
+    print('Running a worst case for First Fit')
+    with open(outfile, 'a') as f:
+        f.write('Running a worst case for First Fit\n')
+
+    one_third = int(math.ceil(input_size / 3))
+    bad_input_ff = [1 / 7 + 0.001] * one_third + [1 / 3 + 0.001] * one_third + [1 / 2 + 0.001] * one_third
+    pack_print_all(bad_input_ff, outfile)
+    pack_and_print(bad_input_ff, first_fit, outfile, False)
+    pack_and_print(bad_input_ff, first_fit, outfile, True)
+
 
 INPUT_SIZE = 100000
-outfile = 'bin-pack_' + time.strftime("%m-%d_%H-%M-%S", time.gmtime()) + ".csv"
-with open(outfile, 'a') as f:
-    f.write('Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT\n')
+OUTFILE = 'bin-pack_' + time.strftime("%m-%d_%H-%M-%S", time.gmtime()) + ".csv"
+with open(OUTFILE, 'a') as F:
+    F.write('Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT\n')
 
-# for i in range(10):
-#    pack_print_all(random_list(1, 10, 100000))
-
-"""
-for i in range(128):
-    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, outfile, True)
-    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, outfile, False)
-"""
-
-epses = [0.5, 0.25, 0.1, 0.05, 0.01, 0.001]
-
-for eps in epses:
-    set_epsilon(eps)
-
-    with open(outfile, 'a') as f:
-        f.write('Doing PTAS, eps={}\n'.format(eps))
-    for i in range(64):
-        pack_and_print(random_list(INPUT_SIZE), ptas_awf, outfile, True)
-
-"""
-print('Running a worst case for Next Fit')
-with open(outfile, 'a') as f:
-    f.write('Running a worst case for Next Fit\n')
-
-# INPUT_SIZE /= 10        # FF is slow
-
-
-worst_case_nf = [1/2, 1/(2*INPUT_SIZE)] * int(math.ceil(INPUT_SIZE / 2))
-pack_print_all(worst_case_nf, outfile)
-pack_and_print(worst_case_nf, first_fit, outfile, False)
-pack_and_print(worst_case_nf, first_fit, outfile, True)
-
-print('Running a worst case for First Fit')
-with open(outfile, 'a') as f:
-    f.write('Running a worst case for First Fit\n')
-onethird = int(math.ceil(INPUT_SIZE / 3))
-worst_case_ff = [1 / 7 + 0.001] * onethird + [1 / 3 + 0.001] * onethird + [1 / 2 + 0.001] * onethird
-pack_print_all(worst_case_ff, outfile)
-pack_and_print(worst_case_ff, first_fit, outfile, False)
-pack_and_print(worst_case_ff, first_fit, outfile, True)
-"""
+# test_all(INPUT_SIZE, OUTFILE)
+# test_ptas(INPUT_SIZE, OUTFILE)
+# worst_case_nf(INPUT_SIZE, OUTFILE)
+# FF is slow, reduce input size by order of mag.
+# worst_case_ff(INPUT_SIZE/10, OUTFILE)

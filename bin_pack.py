@@ -131,9 +131,16 @@ def ptas_awf(items, descending):     # Descending is ignored, but we accept it b
     return almost_worst_fit(small_items, True, large_packed)
 
 
+def worst_fit(items, decreasing, existing_bins=None):
+    return _worst_fit(items, decreasing, False, existing_bins)
+
 def almost_worst_fit(items, decreasing, existing_bins=None):
+    return _worst_fit(items, decreasing, True, existing_bins)
+
+def _worst_fit(items, decreasing, almost, existing_bins=None):
     """
     Runtime: O(n*logn)
+    :param almost: True to run AlmostWorstFit, False to run WorstFit
     :param items: List of integer item weights, each less than Bin.CAPACITY
     :param decreasing: Whether or not to sort the items by non-increasing weights before packing
     :return: A list of 'bins', each a list of items contained in that bin.
@@ -154,10 +161,13 @@ def almost_worst_fit(items, decreasing, existing_bins=None):
     for item, weight in enumerate(items):
         packed = False
 
-        second_lightest_bin_node = bin_weights.second_min()
+        if almost:
+            light_bin_node = bin_weights.second_min()
+        else:
+            light_bin_node = bin_weights.min()
 
-        if second_lightest_bin_node:
-            lightest_bin = bins[second_lightest_bin_node.key.name]
+        if light_bin_node:
+            lightest_bin = bins[light_bin_node.key.name]
             packed = lightest_bin.try_add_item(item, weight)
 
         if not packed:
@@ -170,7 +180,7 @@ def almost_worst_fit(items, decreasing, existing_bins=None):
         else:
             # Update the tree by removing the old bin weight, and adding the new one, still pointing to the same
             # index in the list of bins.
-            bin_weights.remove(second_lightest_bin_node.key)
+            bin_weights.remove(light_bin_node.key)
             bin_weights.insert(lightest_bin.weight, lightest_bin.name)
 
     return bins

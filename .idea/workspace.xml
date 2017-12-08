@@ -14,7 +14,7 @@
       <file leaf-file-name="bin_pack.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin_pack.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
+            <state relative-caret-position="153">
               <caret line="128" column="0" lean-forward="true" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -26,8 +26,8 @@
       <file leaf-file-name="bin_pack_main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin_pack_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state relative-caret-position="57">
+              <caret line="40" column="35" lean-forward="true" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -100,12 +100,12 @@
         <option value="$PROJECT_DIR$/improved.txt" />
         <option value="$PROJECT_DIR$/bin-pack_12-06_03-40-12" />
         <option value="$PROJECT_DIR$/binary_tree.py" />
-        <option value="$PROJECT_DIR$/bin_pack.py" />
         <option value="$PROJECT_DIR$/bin_pack_main.py" />
+        <option value="$PROJECT_DIR$/bin_pack.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1325" />
     <option name="y" value="57" />
     <option name="width" value="1400" />
@@ -210,7 +210,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1608" y="57" width="1616" height="916" extended-state="6" />
+    <frame x="-1608" y="57" width="1616" height="916" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.215625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -241,7 +241,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/bin_pack.py</url>
-          <line>217</line>
+          <line>227</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -618,8 +618,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin_pack_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="57">
+          <caret line="40" column="35" lean-forward="true" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -628,7 +628,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin_pack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
+        <state relative-caret-position="153">
           <caret line="128" column="0" lean-forward="true" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
