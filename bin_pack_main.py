@@ -1,8 +1,9 @@
 import math
 
-from bin_pack import pack_print_all, pack_and_print, first_fit, set_epsilon, ptas_awf
+from bin_pack import pack_print_all, pack_and_print, first_fit, set_epsilon, ptas_awfd, almost_worst_fit
 import random
 import time
+
 
 def random_int_list(min, max, length):
     result = []
@@ -23,9 +24,11 @@ def random_list(length):
 
     return result
 
+
 def test_all(input_size, outfile):
     for i in range(128):
         pack_print_all(random_list(input_size), outfile)
+
 
 def test_ptas(input_size, outfile):
     epses = [0.5, 0.25, 0.1, 0.05, 0.01, 0.001]
@@ -36,7 +39,8 @@ def test_ptas(input_size, outfile):
         with open(outfile, 'a') as f:
             f.write('Doing PTAS, eps={}\n'.format(eps))
         for i in range(64):
-            pack_and_print(random_list(input_size), ptas_awf, outfile, True)
+            pack_and_print(random_list(input_size), ptas_awfd, outfile, True)
+
 
 def worst_case_nf(input_size, outfile):
     print('Running a worst case for Next Fit')
@@ -47,6 +51,7 @@ def worst_case_nf(input_size, outfile):
     pack_print_all(bad_input_nf, outfile)
     pack_and_print(bad_input_nf, first_fit, outfile, False)
     pack_and_print(bad_input_nf, first_fit, outfile, True)
+
 
 def worst_case_ff(input_size, outfile):
     print('Running a worst case for First Fit')
@@ -66,7 +71,15 @@ with open(OUTFILE, 'a') as F:
     F.write('Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT\n')
 
 # test_all(INPUT_SIZE, OUTFILE)
-# test_ptas(INPUT_SIZE, OUTFILE)
-# worst_case_nf(INPUT_SIZE, OUTFILE)
+test_ptas(INPUT_SIZE, OUTFILE)
+
+#for x in range(128):
+#    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, OUTFILE, True)
+#    pack_and_print(random_list(INPUT_SIZE), almost_worst_fit, OUTFILE, False)
+
 # FF is slow, reduce input size by order of mag.
-# worst_case_ff(INPUT_SIZE/10, OUTFILE)
+# worst_case_nf(math.ceil(INPUT_SIZE/10), OUTFILE)
+# worst_case_ff(math.ceil(INPUT_SIZE/10), OUTFILE)
+#for x in range(128):
+#    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, False)
+#    pack_and_print(random_list(math.ceil(INPUT_SIZE/10)), first_fit, OUTFILE, True)

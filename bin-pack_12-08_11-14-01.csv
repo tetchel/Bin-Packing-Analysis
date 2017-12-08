@@ -1,0 +1,8 @@
+Algorithm, Descending?, n, Runtime (s), SOL, OPT, SOL/OPT
+first_fit, False, 10000, 11.455666, 5161, 5002, 1.031787
+first_fit, True, 10000, 12.09667, 4987, 4975, 1.002412
+first_fit, False, 10000, 11.316298, 5194, 5026, 1.033426
+first_fit, True, 10000, 12.354691, 5017, 4998, 1.003802
+first_fit, False, 10000, 11.478203, 5119, 4976, 1.028738
+first_fit, True, 10000, 12.507827, 5051, 4995, 1.011211
+first_fit, False, 10000, 12.004961, 5202, 5048, 1.030507

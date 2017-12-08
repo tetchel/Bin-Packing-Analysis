@@ -556,10 +556,27 @@ class BinaryTree:
 
     def second_min(self):
         min = self.min()
-        if min is not None:
-            return min.parent
-        else:
-            return min
+        if min is None:
+            return None
+        elif min == self.root:
+            if min.left_child is None and min.right_child is None:
+                return None
+
+        parent = None
+        child = self.root
+
+        while child.left_child is not None:
+            parent = child
+            child = child.left_child
+
+        if child.right_child is None:
+            return parent
+
+        child = child.right_child
+        while child.left_child is not None:
+            child = child.left_child
+
+        return child
 
 def test():
     def random_data_generator(count, max_val):

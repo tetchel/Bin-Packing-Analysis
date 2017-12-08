@@ -4,9 +4,6 @@ from copy import deepcopy
 
 from binary_tree import BinaryTree
 
-
-# Assumes integer weights, and gives each bin capacity 10.
-
 class Bin:
     CAPACITY = 1
 
@@ -116,8 +113,8 @@ def set_epsilon(eps):
     epsilon = eps
 
 
-def ptas_awf(items, descending):     # Descending is ignored, but we accept it because pack_and_print will pass it
-    print('Running PTAS with epsilon={}'.format(epsilon))
+def ptas_awfd(items, descending):     # Descending is ignored, but we accept it because pack_and_print will pass it
+    print('Running ' + ptas_awfd.__name__ + ' with epsilon={}'.format(epsilon))
 
     small_items = []
     large_items = []
@@ -267,10 +264,11 @@ def pack_and_print(items, algorithm, outfile, descending):
 
 def pack_print_all(items, outfile):
     pack_and_print(items, next_fit, outfile, False)
+    pack_and_print(items, worst_fit, outfile, False)
     pack_and_print(items, almost_worst_fit, outfile, False)
-    # pack_and_print(items, best_fit, outfile, False)
 
     pack_and_print(items, next_fit, outfile, True)
+    pack_and_print(items, worst_fit, outfile, True)
     pack_and_print(items, almost_worst_fit, outfile, True)
     pack_and_print(items, best_fit, outfile, True)
 
